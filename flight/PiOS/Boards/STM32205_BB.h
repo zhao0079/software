@@ -139,12 +139,12 @@ extern uint32_t pios_i2c_main_adapter_id;
 // PIOS_BMP085
 //------------------------
 #define PIOS_BMP085_EOC_GPIO_PORT               GPIOC
-#define PIOS_BMP085_EOC_GPIO_PIN                GPIO_Pin_15
+#define PIOS_BMP085_EOC_GPIO_PIN                GPIO_Pin_13
 #define PIOS_BMP085_EOC_PORT_SOURCE             GPIO_PortSourceGPIOC
-#define PIOS_BMP085_EOC_PIN_SOURCE              GPIO_PinSource15
+#define PIOS_BMP085_EOC_PIN_SOURCE              GPIO_PinSource13
 #define PIOS_BMP085_EOC_CLK                     RCC_APB2Periph_GPIOC
-#define PIOS_BMP085_EOC_EXTI_LINE               EXTI_Line15
-#define PIOS_BMP085_EOC_IRQn                    EXTI15_10_IRQn
+#define PIOS_BMP085_EOC_EXTI_LINE               EXTI_Line13
+#define PIOS_BMP085_EOC_IRQn                    EXTI13_10_IRQn
 #define PIOS_BMP085_EOC_PRIO                    PIOS_IRQ_PRIO_LOW
 //#define PIOS_BMP085_OVERSAMPLING                2
 #define PIOS_BMP085_OVERSAMPLING                3
