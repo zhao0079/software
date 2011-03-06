@@ -5,8 +5,8 @@
  * @addtogroup OpenPilotCore OpenPilot Core
  * @{
  * @file       pios_board.h
- * @author     The OpenPilot Team, http://www.openpilot.org Copyright (C) 2010.
- * @brief      Defines board hardware for the OpenPilot Version 1.1 hardware.
+ * @author     The OpenPilot Team, http://www.openpilot.org Copyright (C) 2011.
+ * @brief      Defines board hardware for the PX2 hardware.
  * @see        The GNU Public License (GPL) Version 3
  *
  *****************************************************************************/
@@ -27,8 +27,8 @@
  */
 
 
-#ifndef STM3210E_OP_H_
-#define STM3210E_OP_H_
+#ifndef STM322205_BB_H_
+#define STM322205_BB_H_
 
 
 
@@ -77,7 +77,7 @@ TIM8  | Servo 5   | Servo 6   | Servo 7   | Servo 8
 #define BOARD_REVISION		0x01  // Beta version
 //#define HW_VERSION	(BOARD_TYPE << 8) | BOARD_REVISION
 
-#define MEM_SIZE			524288 //512K
+#define MEM_SIZE			1048576 // 1 MB
 #define SIZE_OF_DESCRIPTION	(uint8_t) 100
 #define START_OF_USER_CODE	(uint32_t)0x08005000//REMEMBER SET ALSO IN link_stm32f10x_HD_BL.ld
 #define SIZE_OF_CODE		(uint32_t) (MEM_SIZE-(START_OF_USER_CODE-0x08000000)-SIZE_OF_DESCRIPTION)
@@ -111,11 +111,11 @@ TIM8  | Servo 5   | Servo 6   | Servo 7   | Servo 8
 // PIOS_LED
 //------------------------
 #define PIOS_LED_LED1_GPIO_PORT                 GPIOB
-#define PIOS_LED_LED1_GPIO_PIN                  GPIO_Pin_6
-#define PIOS_LED_LED1_GPIO_CLK                  RCC_APB2Periph_GPIOC
+#define PIOS_LED_LED1_GPIO_PIN                  GPIO_Pin_14
+#define PIOS_LED_LED1_GPIO_CLK                  RCC_APB2Periph_GPIOB
 #define PIOS_LED_LED2_GPIO_PORT                 GPIOB
-#define PIOS_LED_LED2_GPIO_PIN                  GPIO_Pin_7
-#define PIOS_LED_LED2_GPIO_CLK                  RCC_APB2Periph_GPIOC
+#define PIOS_LED_LED2_GPIO_PIN                  GPIO_Pin_15
+#define PIOS_LED_LED2_GPIO_CLK                  RCC_APB2Periph_GPIOB
 #define PIOS_LED_NUM                            2
 #define PIOS_LED_PORTS                          { PIOS_LED_LED1_GPIO_PORT, PIOS_LED_LED2_GPIO_PORT }
 #define PIOS_LED_PINS                           { PIOS_LED_LED1_GPIO_PIN, PIOS_LED_LED2_GPIO_PIN }
@@ -138,13 +138,13 @@ extern uint32_t pios_i2c_main_adapter_id;
 //------------------------
 // PIOS_BMP085
 //------------------------
-#define PIOS_BMP085_EOC_GPIO_PORT               GPIOC
-#define PIOS_BMP085_EOC_GPIO_PIN                GPIO_Pin_13
-#define PIOS_BMP085_EOC_PORT_SOURCE             GPIO_PortSourceGPIOC
-#define PIOS_BMP085_EOC_PIN_SOURCE              GPIO_PinSource13
-#define PIOS_BMP085_EOC_CLK                     RCC_APB2Periph_GPIOC
-#define PIOS_BMP085_EOC_EXTI_LINE               EXTI_Line13
-#define PIOS_BMP085_EOC_IRQn                    EXTI13_10_IRQn
+#define PIOS_BMP085_EOC_GPIO_PORT               GPIOA
+#define PIOS_BMP085_EOC_GPIO_PIN                GPIO_Pin_10
+#define PIOS_BMP085_EOC_PORT_SOURCE             GPIO_PortSourceGPIOA
+#define PIOS_BMP085_EOC_PIN_SOURCE              GPIO_PinSource10
+#define PIOS_BMP085_EOC_CLK                     RCC_APB2Periph_GPIOA
+#define PIOS_BMP085_EOC_EXTI_LINE               EXTI_Line10
+#define PIOS_BMP085_EOC_IRQn                    EXTI10_10_IRQn
 #define PIOS_BMP085_EOC_PRIO                    PIOS_IRQ_PRIO_LOW
 //#define PIOS_BMP085_OVERSAMPLING                2
 #define PIOS_BMP085_OVERSAMPLING                3
@@ -199,8 +199,8 @@ extern uint32_t pios_com_spektrum_id;
 //-------------------------
 // System Settings
 //-------------------------
-#define PIOS_MASTER_CLOCK                       72000000
-#define PIOS_PERIPHERAL_CLOCK                   (PIOS_MASTER_CLOCK / 2)
+#define PIOS_MASTER_CLOCK                       120000000
+#define PIOS_PERIPHERAL_CLOCK                   36000000 //(PIOS_MASTER_CLOCK / 2)
 #if defined(USE_BOOTLOADER)
 #define PIOS_NVIC_VECTTAB_FLASH                 (START_OF_USER_CODE)
 #else
@@ -228,8 +228,8 @@ extern uint32_t pios_com_spektrum_id;
 //-------------------------
 // Receiver PPM input
 //-------------------------
-#define PIOS_PPM_GPIO_PORT                      GPIOA
-#define PIOS_PPM_GPIO_PIN                       GPIO_Pin_9
+#define PIOS_PPM_GPIO_PORT                      GPIOB
+#define PIOS_PPM_GPIO_PIN                       GPIO_Pin_0
 #define PIOS_PPM_TIM_PORT                       TIM1
 #define PIOS_PPM_TIM_CHANNEL                    TIM_Channel_2
 #define PIOS_PPM_TIM_CCR                        TIM_IT_CC2
@@ -271,12 +271,12 @@ extern uint32_t pios_com_spektrum_id;
 // PIOS_ADC_PinGet(6) = Auxiliary Input 3
 //-------------------------
 //#define PIOS_ADC_OVERSAMPLING_RATE            1
-#define PIOS_ADC_USE_TEMP_SENSOR                1
+#define PIOS_ADC_USE_TEMP_SENSOR                0
 #define PIOS_ADC_TEMP_SENSOR_ADC                ADC1
 #define PIOS_ADC_TEMP_SENSOR_ADC_CHANNEL        1
-#define PIOS_ADC_PIN1_GPIO_PORT                 GPIOA                   // PA1 (Power Sense - Voltage)
-#define PIOS_ADC_PIN1_GPIO_PIN                  GPIO_Pin_1              // ADC123_IN1
-#define PIOS_ADC_PIN1_GPIO_CHANNEL              ADC_Channel_1
+#define PIOS_ADC_PIN1_GPIO_PORT                 GPIOC                   // PA1 (Power Sense - Voltage)
+#define PIOS_ADC_PIN1_GPIO_PIN                  GPIO_Pin_0              // ADC123_IN1
+#define PIOS_ADC_PIN1_GPIO_CHANNEL              ADC_Channel_0
 #define PIOS_ADC_PIN1_ADC                       ADC1
 #define PIOS_ADC_PIN1_ADC_NUMBER                2
 #define PIOS_ADC_PIN2_GPIO_PORT                 GPIOC                   // PC3 (Power Sense - Current)
@@ -332,13 +332,13 @@ extern uint32_t pios_com_spektrum_id;
 // GPIO
 //-------------------------
 #define PIOS_GPIO_1_PORT                        GPIOC
-#define PIOS_GPIO_1_PIN                         GPIO_Pin_0
+#define PIOS_GPIO_1_PIN                         GPIO_Pin_4
 #define PIOS_GPIO_1_GPIO_CLK                    RCC_APB2Periph_GPIOC
 #define PIOS_GPIO_2_PORT                        GPIOC
-#define PIOS_GPIO_2_PIN                         GPIO_Pin_1
+#define PIOS_GPIO_2_PIN                         GPIO_Pin_5
 #define PIOS_GPIO_2_GPIO_CLK                    RCC_APB2Periph_GPIOC
 #define PIOS_GPIO_3_PORT                        GPIOC
-#define PIOS_GPIO_3_PIN                         GPIO_Pin_2
+#define PIOS_GPIO_3_PIN                         GPIO_Pin_8
 #define PIOS_GPIO_3_GPIO_CLK                    RCC_APB2Periph_GPIOC
 #define PIOS_GPIO_4_PORT                        GPIOD
 #define PIOS_GPIO_4_PIN                         GPIO_Pin_2
@@ -352,9 +352,9 @@ extern uint32_t pios_com_spektrum_id;
 // USB
 //-------------------------
 #define PIOS_USB_ENABLED                        1
-#define PIOS_USB_DETECT_GPIO_PORT               GPIOC
-#define PIOS_USB_DETECT_GPIO_PIN                GPIO_Pin_4
-#define PIOS_USB_DETECT_EXTI_LINE               EXTI_Line4
+#define PIOS_USB_DETECT_GPIO_PORT               GPIOA
+#define PIOS_USB_DETECT_GPIO_PIN                GPIO_Pin_9
+#define PIOS_USB_DETECT_EXTI_LINE               EXTI_Line9
 #define PIOS_IRQ_USB_PRIORITY                   PIOS_IRQ_PRIO_MID
 #define PIOS_USB_RX_BUFFER_SIZE                 512
 #define PIOS_USB_TX_BUFFER_SIZE                 512
@@ -377,7 +377,7 @@ extern uint32_t pios_com_spektrum_id;
 
 
 
-#endif /* STM3210E_OP_H_ */
+#endif /* STM322205_BB_H_ */
 /**
  * @}
  * @}
